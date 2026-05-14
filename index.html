@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Posicionamento — Badaró</title>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:       #000000;
+      --white:       #FFFFFF;
+      --neo-pink:    #FF1596;
+      --magenta:     #5F0033;
+      --plat-gray:   #C8CCD6;
+      --light-gray:  #F4F4F2;
+      --mid-gray:    #6B6B6B;
+      --border:      #E8E8E6;
+      --sidebar-w:   256px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--light-gray);
+      color: var(--black);
+      display: flex;
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--black);
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      overflow-y: auto;
+      padding: 28px 0 40px;
+      z-index: 100;
+    }
+
+    .sidebar-logo {
+      padding: 0 24px 28px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .logo-mark {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+
+    .logo-mark span { color: var(--neo-pink); }
+
+    .sidebar-tagline {
+      font-size: 11px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 5px;
+      font-weight: 500;
+    }
+
+    .sidebar-group { padding: 20px 0 4px; }
+
+    .sidebar-group-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #3a3a3a;
+      font-weight: 700;
+      padding: 0 24px;
+      margin-bottom: 6px;
+    }
+
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 24px;
+      color: #777;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: color 0.15s, background 0.15s;
+      border-left: 2px solid transparent;
+    }
+
+    .sidebar nav a:hover { color: #ccc; }
+
+    .sidebar nav a.active {
+      color: var(--white);
+      border-left-color: var(--neo-pink);
+      background: #111;
+    }
+
+    .nav-num {
+      font-size: 10px;
+      color: #333;
+      font-weight: 700;
+      width: 18px;
+      flex-shrink: 0;
+    }
+
+    .sidebar nav a.active .nav-num { color: var(--neo-pink); }
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      padding-bottom: 80px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--black);
+      padding: 80px 56px 64px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--neo-pink);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--white);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--neo-pink);
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      color: #999;
+      max-width: 560px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      margin-top: 56px;
+      border-top: 1px solid #1a1a1a;
+      padding-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      padding-right: 36px;
+      margin-right: 36px;
+      border-right: 1px solid #1a1a1a;
+    }
+
+    .hero-stat:last-child {
+      border-right: none;
+      margin-right: 0;
+      padding-right: 0;
+    }
+
+    .hero-stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1px;
+    }
+
+    .hero-stat-value em {
+      font-style: normal;
+      color: var(--neo-pink);
+    }
+
+    .hero-stat-label {
+      font-size: 11px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-path {
+      font-size: 12px;
+      color: var(--mid-gray);
+      font-weight: 500;
+    }
+
+    .topbar-path span { color: var(--black); font-weight: 600; }
+
+    .topbar-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--black);
+      color: var(--white);
+      padding: 4px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── CONTENT ── */
+    .content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 96px;
+      scroll-margin-top: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-num {
+      background: var(--neo-pink);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h3 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--mid-gray);
+      margin: 32px 0 14px;
+    }
+
+    h3:first-child { margin-top: 0; }
+
+    p {
+      color: #222;
+      margin-bottom: 14px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    p.lead {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--black);
+      line-height: 1.55;
+      margin-bottom: 22px;
+    }
+
+    strong { font-weight: 700; color: var(--black); }
+
+    em.pink {
+      font-style: normal;
+      color: var(--neo-pink);
+      font-weight: 600;
+    }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 28px 32px;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.55;
+      margin: 28px 0;
+      letter-spacing: -0.2px;
+    }
+
+    .callout em {
+      font-style: normal;
+      color: var(--neo-pink);
+    }
+
+    .callout-quote {
+      background: var(--white);
+      border-left: 3px solid var(--neo-pink);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      font-size: 16px;
+      font-style: italic;
+      color: #333;
+      margin: 24px 0;
+      line-height: 1.6;
+    }
+
+    .callout-quote::before {
+      content: '"';
+      color: var(--neo-pink);
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 800;
+      vertical-align: -8px;
+      margin-right: 4px;
+    }
+
+    .callout-quote::after { content: '"'; color: var(--neo-pink); font-style: normal; font-weight: 800; }
+
+    /* ── ORDERED LIST ── */
+    ol.numbered {
+      list-style: none;
+      counter-reset: step;
+      margin: 16px 0;
+    }
+
+    ol.numbered li {
+      counter-increment: step;
+      padding: 18px 0 18px 48px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      font-size: 15px;
+      color: #222;
+    }
+
+    ol.numbered li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 16px;
+      width: 32px;
+      height: 32px;
+      background: var(--neo-pink);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    ol.numbered li:last-child { border-bottom: none; }
+
+    ol.numbered li strong { display: block; margin-bottom: 4px; }
+
+    /* ── PILLAR (lentes, princípios) ── */
+    .pillar {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 10px;
+    }
+
+    .pillar-num {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--neo-pink);
+      margin-bottom: 6px;
+    }
+
+    .pillar-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .pillar-text {
+      font-size: 14px;
+      color: var(--mid-gray);
+      line-height: 1.6;
+    }
+
+    /* ── STATS GRID (provas) ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 28px 0;
+    }
+
+    .stat-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      text-align: left;
+    }
+
+    .stat-num {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--neo-pink);
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--mid-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    /* ── ATTRIBUTE LIST (atributos identidade) ── */
+    .attr-list { margin-top: 20px; }
+
+    .attr {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 12px;
+    }
+
+    .attr-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .attr-text {
+      font-size: 14px;
+      color: var(--mid-gray);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 80px;
+      padding: 40px 56px;
+      border-top: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--mid-gray);
+      text-align: center;
+      margin: 0;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      :root { --sidebar-w: 0px; }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 16px 0;
+      }
+      .sidebar nav { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 16px; }
+      .sidebar nav a { padding: 8px 12px; border-left: none; border-bottom: 2px solid transparent; }
+      .sidebar nav a.active { background: transparent; border-bottom-color: var(--neo-pink); }
+      .sidebar-group-label, .sidebar-tagline { display: none; }
+      body { flex-direction: column; }
+      .main { margin-left: 0; }
+      .hero { padding: 48px 24px; }
+      .hero-title { font-size: 36px; letter-spacing: -1.2px; }
+      .hero-stat { padding-right: 20px; margin-right: 20px; }
+      .topbar { padding: 12px 24px; }
+      .content { padding: 32px 24px; }
+      .section-title { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">Badaró<span>.</span></div>
+      <div class="sidebar-tagline">Posicionamento</div>
+    </div>
+
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Documento</div>
+      <nav id="sidebar-nav">
+        <a href="#secao-00"><span class="nav-num">00</span>Premissa</a>
+        <a href="#secao-01"><span class="nav-num">01</span>O lugar no mapa</a>
+        <a href="#secao-02"><span class="nav-num">02</span>O posicionamento</a>
+        <a href="#secao-03"><span class="nav-num">03</span>O diferencial</a>
+        <a href="#secao-04"><span class="nav-num">04</span>A promessa ao cliente</a>
+        <a href="#secao-05"><span class="nav-num">05</span>As seis lentes</a>
+        <a href="#secao-06"><span class="nav-num">06</span>As provas</a>
+        <a href="#secao-07"><span class="nav-num">07</span>Atributos de identidade</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <section class="hero">
+      <div class="hero-eyebrow">Posicionamento Badaró</div>
+      <h1 class="hero-title">Centro de Excelência em <em>Experiência</em></h1>
+      <p class="hero-desc">A consultoria que constrói a camada interpretativa entre marca e tecnologia. O substrato que faz a IA, os agentes e os produtos digitais operarem com a bússola da marca.</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value"><em>13+</em></div>
+          <div class="hero-stat-label">anos de atuação</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value"><em>500+</em></div>
+          <div class="hero-stat-label">projetos entregues</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value"><em>150+</em></div>
+          <div class="hero-stat-label">clientes orientados</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value"><em>100+</em></div>
+          <div class="hero-stat-label">talentos no ecossistema</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="topbar">
+      <div class="topbar-path">Badaró <span>/ Posicionamento</span></div>
+      <div class="topbar-badge">v1 · 14 mai 2026</div>
+    </div>
+
+    <div class="content">
+
+      <section class="section" id="secao-00">
+        <div class="section-header">
+          <span class="section-num">00</span>
+          <h2 class="section-title">Premissa</h2>
+        </div>
+
+        <p class="lead">Cresce com IA quem mantém critério.</p>
+
+        <p>O mercado tem tecnologia em abundância e ferramentas que se aceleram a cada mês. O que está em falta é o que orienta tudo isso. Marcas inteiras se diluem em automações que ninguém autorizou, em produtos que escalaram mais rápido do que a identidade que os sustenta, em decisões que nasceram em segundos sem que alguém tenha lido a marca por trás delas.</p>
+
+        <div class="callout">
+          A Badaró trabalha nessa camada: a <em>compreensão que a tecnologia precisa ter da marca</em> antes de operar por ela.
+        </div>
+
+        <p>Este documento descreve o que a Badaró já é.</p>
+      </section>
+
+      <section class="section" id="secao-01">
+        <div class="section-header">
+          <span class="section-num">01</span>
+          <h2 class="section-title">O lugar no mapa</h2>
+        </div>
+
+        <p>O mercado global de consultoria estratégica se reorganizou em torno da IA. Cada player relevante hoje se posiciona em torno de um pilar específico: escala, eficiência operacional, transformação estrutural, inteligência setorial, engenharia confiável, valor humano, integração entre AI e humano. Todos respondem à mesma pergunta: como crescer com IA sem perder o que importa.</p>
+
+        <p>O time de pesquisa da Badaró mapeou esses pilares e cristalizou <strong>seis princípios próprios sobre IA</strong>, que hoje fundamentam a frente AIX:</p>
+
+        <div class="pillar">
+          <div class="pillar-num">Princípio 01</div>
+          <div class="pillar-title">Escalabilidade</div>
+          <div class="pillar-text">A marca que define sua bússola antes de crescer com IA garante que cada novo produto começa de onde o anterior parou, com os mesmos critérios e o mesmo padrão.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">Princípio 02</div>
+          <div class="pillar-title">Operação Autônoma</div>
+          <div class="pillar-text">Autonomia rastreável é o que torna a operação sustentável. Quando o humano sabe o que o agente decide, velocidade e controle coexistem.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">Princípio 03</div>
+          <div class="pillar-title">Eficiência e Tomada de Decisão</div>
+          <div class="pillar-text">A IA encontra padrões. Pesquisadores entendem o que eles significam para aquele contexto. É esse cruzamento que transforma análise em decisão.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">Princípio 04</div>
+          <div class="pillar-title">Engenharia Confiável</div>
+          <div class="pillar-text">O que se constrói com governança desde o início dura. IA em produção exige comprometimento contínuo com qualidade, segurança e alinhamento ao negócio.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">Princípio 05</div>
+          <div class="pillar-title">Valor Humano</div>
+          <div class="pillar-text">Experiências humanas são dados mensuráveis. O que as pessoas sentem, onde travam e o que as faz avançar orientam cada decisão de produto.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">Princípio 06</div>
+          <div class="pillar-title">AI e Humano Integrado</div>
+          <div class="pillar-text">A marca que define sua voz antes de ser automatizada mantém autenticidade em qualquer canal, com qualquer agente. Identidade, tom e comportamento são critérios de projeto.</div>
+        </div>
+
+        <p style="margin-top: 28px;">A leitura desse mapa revelou também o <strong>território próprio da Badaró</strong>. Esse território fica no cruzamento entre duas capacidades que raramente coexistem na mesma consultoria: profundidade humana, expressa em pesquisa, design e marca, e confiabilidade técnica, expressa em engenharia, dados e governança que sustentam a operação.</p>
+
+        <p>O que define o lugar é o trabalho que a Badaró faz a partir desse cruzamento: integra pesquisa, branding, design e tecnologia numa única operação interpretativa, conectando o que a marca é ao que a tecnologia entrega.</p>
+      </section>
+
+      <section class="section" id="secao-02">
+        <div class="section-header">
+          <span class="section-num">02</span>
+          <h2 class="section-title">O posicionamento</h2>
+        </div>
+
+        <div class="callout">
+          <em>Centro de Excelência em Experiência.</em>
+        </div>
+
+        <p>A frase é direta. Pede expansão.</p>
+
+        <h3>Excelência</h3>
+        <p>Na Badaró, significa coisa específica: domínio integrado de pesquisa, design, branding e tecnologia, operando como uma camada única. A consultoria full-service que tem capacidade equivalente nas seis lentes da experiência (<strong>AI, Customer, User, Tech, Brand, Employee</strong>) e que entrega o resultado dessa integração como uma só prática.</p>
+
+        <h3>Experiência</h3>
+        <p>Na Badaró, significa o conjunto inteiro: o que o cliente sente, o que o produto comunica quando o cliente não está olhando, o que a IA decide quando ninguém autorizou, o que o colaborador vive antes de chegar no cliente.</p>
+
+        <h3>Centro</h3>
+        <p>Na Badaró, significa o lugar onde a tradução acontece. A Badaró é onde marca, dado, tecnologia e humano deixam de operar em silos e começam a operar como sistema.</p>
+      </section>
+
+      <section class="section" id="secao-03">
+        <div class="section-header">
+          <span class="section-num">03</span>
+          <h2 class="section-title">O diferencial</h2>
+        </div>
+
+        <p class="lead">A Badaró constrói bússola. Esse é o trabalho que define seu lugar.</p>
+
+        <p>O substrato interpretativo que ela constrói faz a tecnologia entender a marca antes de operar por ela. É o que mantém a personalidade quando o produto escala, preserva a voz quando o atendimento vira agente e sustenta a coerência quando cada canal opera com sua própria automação.</p>
+
+        <div class="callout-quote">
+          Integramos branding centers com design system e content design para alimentar a tecnologia, para que a IA tenha uma bússola que compreende o direcionamento de qualidade do nosso cliente.
+        </div>
+
+        <p>Esse substrato é construído com três camadas que precisam coexistir:</p>
+
+        <ol class="numbered">
+          <li><strong>Brand center.</strong> A definição clara de quem a marca é, como ela fala, o que ela protege.</li>
+          <li><strong>Design system.</strong> A infraestrutura visual e comportamental que faz essa identidade aparecer em qualquer interface.</li>
+          <li><strong>Content design.</strong> A linguagem viva que alimenta a tecnologia para que ela responda como a marca responderia.</li>
+        </ol>
+
+        <div class="callout">
+          Junte as três e você tem a bússola. <em>Sem uma delas, a tecnologia escala sem orientação.</em>
+        </div>
+
+        <p>A integração dessas camadas numa única operação interpretativa é o trabalho próprio da Badaró.</p>
+      </section>
+
+      <section class="section" id="secao-04">
+        <div class="section-header">
+          <span class="section-num">04</span>
+          <h2 class="section-title">A promessa ao cliente</h2>
+        </div>
+
+        <p>O cliente que escolhe a Badaró recebe três coisas simultâneas:</p>
+
+        <div class="pillar">
+          <div class="pillar-num">Promessa 01</div>
+          <div class="pillar-title">Tecnologia que cresce sem perder identidade</div>
+          <div class="pillar-text">A IA que a Badaró implementa aprende com a marca antes de operar por ela. Os agentes que entram em produção carregam a voz e o critério da empresa que os contratou. Quando a operação escala, o sotaque da marca permanece.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">Promessa 02</div>
+          <div class="pillar-title">Decisão técnica com critério humano</div>
+          <div class="pillar-text">Cada escolha de arquitetura, cada padrão de design, cada linha de copy passa por interpretação. A tecnologia, na Badaró, sustenta a experiência sem dominá-la. A última palavra continua sendo humana.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">Promessa 03</div>
+          <div class="pillar-title">Coerência atravessando todas as camadas</div>
+          <div class="pillar-text">Marca, produto, atendimento, automação, time interno: a Badaró desenha esse conjunto como sistema. O que o cliente sente, o que o colaborador vive, o que a tecnologia entrega e o que a marca promete operam alinhados.</div>
+        </div>
+      </section>
+
+      <section class="section" id="secao-05">
+        <div class="section-header">
+          <span class="section-num">05</span>
+          <h2 class="section-title">As seis lentes como infraestrutura</h2>
+        </div>
+
+        <p>A Badaró opera com seis lentes de experiência: <strong>AIX, CX, UX, TX, BX, EX</strong>. Elas existem por uma razão estrutural: a camada interpretativa só funciona quando atravessa as seis dimensões.</p>
+
+        <div class="pillar">
+          <div class="pillar-num">AIX</div>
+          <div class="pillar-title">AI Experience</div>
+          <div class="pillar-text">Onde a tecnologia opera com o critério das outras cinco. É a frente mais visível do diferencial: a IA escala carregando a identidade, o método e a jornada que as outras lentes constroem.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">CX</div>
+          <div class="pillar-title">Customer Experience</div>
+          <div class="pillar-text">Mapeia a jornada concreta que o cliente vive, a base sobre a qual cada decisão técnica e de marca é tomada.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">UX</div>
+          <div class="pillar-title">User Experience</div>
+          <div class="pillar-text">Traduz tudo isso em produto digital que se usa sem manual. A interface que carrega o sentido construído nas outras camadas.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">TX</div>
+          <div class="pillar-title">Tech Experience</div>
+          <div class="pillar-text">Sustenta a operação. A infraestrutura que aguenta o que as outras lentes pedem para entregar.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">BX</div>
+          <div class="pillar-title">Brand Experience</div>
+          <div class="pillar-text">Define a identidade que orienta o conjunto. Quem a marca é, como ela fala, o que ela protege.</div>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-num">EX</div>
+          <div class="pillar-title">Employee Experience</div>
+          <div class="pillar-text">Garante que o time interno viva a cultura que a marca promete externamente. Sem isso, todas as outras lentes operam sobre uma base inconsistente.</div>
+        </div>
+
+        <div class="callout">
+          Cada lente é uma camada do mesmo trabalho. <em>Recortar uma compromete o conjunto.</em>
+        </div>
+
+        <p>Por isso a Badaró é full-service de raiz: a integração não é estilo de operação, é condição do diferencial.</p>
+      </section>
+
+      <section class="section" id="secao-06">
+        <div class="section-header">
+          <span class="section-num">06</span>
+          <h2 class="section-title">As provas</h2>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-num">13+</div>
+            <div class="stat-label">anos de atuação</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">500+</div>
+            <div class="stat-label">projetos entregues</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">150+</div>
+            <div class="stat-label">clientes orientados</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">100+</div>
+            <div class="stat-label">talentos no ecossistema</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">14</div>
+            <div class="stat-label">setores diferentes</div>
+          </div>
+        </div>
+
+        <p>Mais relevante que os números é o tipo de cliente que escolhe a Badaró: marcas que decidem o ritmo de seus mercados, atravessando setores como saúde, mídia, educação, hospitalidade, fintechs, varejo e bens de consumo.</p>
+
+        <p>Esses projetos têm um padrão: situações em que a tecnologia precisava entregar resultado sem que a marca se perdesse no caminho. <strong>A camada interpretativa estava em jogo em todos.</strong></p>
+
+        <p>Reconhecimentos externos confirmam o lugar.</p>
+      </section>
+
+      <section class="section" id="secao-07">
+        <div class="section-header">
+          <span class="section-num">07</span>
+          <h2 class="section-title">Atributos de identidade</h2>
+        </div>
+
+        <p>Como esse posicionamento aparece em comportamento.</p>
+
+        <div class="attr-list">
+          <div class="attr">
+            <div class="attr-title">Linguagem técnica com profundidade humana</div>
+            <div class="attr-text">Vocabulário específico, método nomeado, resultado mensurável. Quando o assunto pede peso humano, esse peso aparece em decisão e critério, sem emoção pasteurizada.</div>
+          </div>
+
+          <div class="attr">
+            <div class="attr-title">Confiança que dispensa promessa</div>
+            <div class="attr-text">O tom afirma o que a marca já é. Cada claim é descrição do trabalho real.</div>
+          </div>
+
+          <div class="attr">
+            <div class="attr-title">Diagnóstico antes da solução</div>
+            <div class="attr-text">A Badaró escuta antes de propor. O método começa antes de qualquer entrega prometida.</div>
+          </div>
+
+          <div class="attr">
+            <div class="attr-title">Cuidado com o substrato</div>
+            <div class="attr-text">Detalhes que parecem triviais (voz do agente, padrão de conteúdo, sotaque da marca em automação) são os que a Badaró trata com mais rigor. É ali que a camada interpretativa se constrói.</div>
+          </div>
+
+          <div class="attr">
+            <div class="attr-title">Resultado de negócio como critério final</div>
+            <div class="attr-text">O trabalho se justifica por impacto mensurável: crescimento, conversão, redução de fricção, escala sustentável.</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer>
+      <p>Posicionamento Badaró · v1 · 14 mai 2026 · Documento interno para brandbook</p>
+    </footer>
+
+  </main>
+
+  <script>
+    const links = document.querySelectorAll('#sidebar-nav a');
+    const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
+
+    function updateActive() {
+      const scrollY = window.scrollY + 140;
+      let activeIdx = 0;
+      sections.forEach((sec, i) => {
+        if (sec && sec.offsetTop <= scrollY) activeIdx = i;
+      });
+      links.forEach((a, i) => a.classList.toggle('active', i === activeIdx));
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+  </script>
+
+</body>
+</html>
