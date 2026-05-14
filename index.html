@@ -335,29 +335,47 @@
       color: var(--neo-pink);
     }
 
-    .callout-quote {
+    .quote-block {
       background: var(--white);
       border-left: 3px solid var(--neo-pink);
       border-radius: 0 8px 8px 0;
-      padding: 20px 24px;
-      font-size: 16px;
-      font-style: italic;
-      color: #333;
-      margin: 24px 0;
-      line-height: 1.6;
+      padding: 28px 32px 24px;
+      margin: 28px 0;
+      position: relative;
     }
 
-    .callout-quote::before {
+    .quote-block::before {
       content: '"';
+      position: absolute;
+      top: 4px;
+      left: 18px;
       color: var(--neo-pink);
-      font-size: 32px;
+      font-size: 56px;
       font-style: normal;
       font-weight: 800;
-      vertical-align: -8px;
-      margin-right: 4px;
+      line-height: 1;
     }
 
-    .callout-quote::after { content: '"'; color: var(--neo-pink); font-style: normal; font-weight: 800; }
+    .quote-text {
+      font-size: 16px;
+      font-style: italic;
+      color: #2a2a2a;
+      line-height: 1.6;
+      margin: 0;
+      padding-top: 28px;
+    }
+
+    .quote-cite {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 0;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--neo-pink);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-style: normal;
+    }
 
     /* ── ORDERED LIST ── */
     ol.numbered {
@@ -682,9 +700,10 @@
 
         <p>O substrato interpretativo que ela constrói faz a tecnologia entender a marca antes de operar por ela. É o que mantém a personalidade quando o produto escala, preserva a voz quando o atendimento vira agente e sustenta a coerência quando cada canal opera com sua própria automação.</p>
 
-        <div class="callout-quote">
-          Integramos branding centers com design system e content design para alimentar a tecnologia, para que a IA tenha uma bússola que compreende o direcionamento de qualidade do nosso cliente.
-        </div>
+        <blockquote class="quote-block">
+          <p class="quote-text">Integramos branding centers com design system e content design para alimentar a tecnologia, para que a IA tenha uma bússola que compreende o direcionamento de qualidade do nosso cliente.</p>
+          <cite class="quote-cite">Fernando Camargo</cite>
+        </blockquote>
 
         <p>Esse substrato é construído com três camadas que precisam coexistir:</p>
 
