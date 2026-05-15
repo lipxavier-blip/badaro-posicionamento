@@ -519,6 +519,201 @@
       margin: 0;
     }
 
+    /* ── COMMENTS UI ── */
+    .commentable { position: relative; }
+
+    .comment-pin {
+      position: absolute;
+      left: -44px;
+      top: 6px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--mid-gray);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.15s, background 0.15s, color 0.15s;
+      z-index: 10;
+      padding: 0;
+      font-family: inherit;
+      line-height: 1;
+    }
+
+    .commentable:hover .comment-pin { opacity: 1; }
+    .comment-pin:hover {
+      background: var(--neo-pink);
+      color: var(--white);
+      border-color: var(--neo-pink);
+      transform: scale(1.1);
+    }
+
+    .comment-pin.has-comments {
+      opacity: 1;
+      background: var(--neo-pink);
+      color: var(--white);
+      border-color: var(--neo-pink);
+    }
+
+    #drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 199;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    #drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+    #comments-drawer {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 400px;
+      max-width: 100vw;
+      height: 100vh;
+      background: var(--white);
+      box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+      z-index: 200;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #comments-drawer.open { right: 0; }
+
+    .drawer-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .drawer-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--black);
+    }
+    .drawer-close {
+      background: transparent;
+      border: none;
+      font-size: 26px;
+      cursor: pointer;
+      color: var(--mid-gray);
+      padding: 0 4px;
+      line-height: 1;
+      font-family: inherit;
+    }
+    .drawer-close:hover { color: var(--black); }
+
+    .drawer-context {
+      padding: 14px 24px;
+      background: var(--light-gray);
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--mid-gray);
+      font-style: italic;
+      line-height: 1.5;
+      max-height: 100px;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .drawer-comments {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 24px;
+    }
+
+    .comment-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .comment-item:last-child { border-bottom: none; }
+
+    .comment-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .comment-author {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--black);
+    }
+    .comment-date {
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+    .comment-body {
+      font-size: 14px;
+      color: #222;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .drawer-empty {
+      text-align: center;
+      padding: 40px 16px;
+      color: var(--mid-gray);
+      font-size: 13px;
+    }
+
+    .drawer-form {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      background: var(--light-gray);
+      flex-shrink: 0;
+    }
+    .drawer-form input,
+    .drawer-form textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      background: var(--white);
+      margin-bottom: 8px;
+      resize: vertical;
+      transition: border-color 0.15s;
+      color: var(--black);
+    }
+    .drawer-form input:focus,
+    .drawer-form textarea:focus {
+      outline: none;
+      border-color: var(--neo-pink);
+    }
+    .drawer-form textarea { min-height: 84px; }
+    .drawer-submit {
+      background: var(--neo-pink);
+      color: var(--white);
+      border: none;
+      border-radius: 100px;
+      padding: 11px 24px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      width: 100%;
+      transition: background 0.15s;
+      letter-spacing: 0.3px;
+    }
+    .drawer-submit:hover { background: #d61080; }
+    .drawer-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
     /* ── MOBILE ── */
     @media (max-width: 900px) {
       :root { --sidebar-w: 0px; }
@@ -540,6 +735,8 @@
       .topbar { padding: 12px 24px; }
       .content { padding: 32px 24px; }
       .section-title { font-size: 22px; }
+      .comment-pin { left: auto; right: 0; top: -6px; width: 28px; height: 28px; font-size: 12px; opacity: 1; background: var(--white); }
+      #comments-drawer { width: 100vw; right: -100vw; }
     }
   </style>
 </head>
@@ -874,21 +1071,189 @@
 
   </main>
 
+  <!-- ── COMMENTS DRAWER ── -->
+  <div id="drawer-overlay"></div>
+  <aside id="comments-drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="drawer-title">Comentários</div>
+      <button class="drawer-close" aria-label="Fechar">×</button>
+    </div>
+    <div class="drawer-context"></div>
+    <div class="drawer-comments"></div>
+    <form class="drawer-form" onsubmit="event.preventDefault()">
+      <input type="text" name="author" placeholder="Seu nome" required maxlength="80" />
+      <textarea name="body" placeholder="Escreva seu comentário" required maxlength="2000"></textarea>
+      <button type="submit" class="drawer-submit">Enviar comentário</button>
+    </form>
+  </aside>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // ── Sidebar active state ──
     const links = document.querySelectorAll('#sidebar-nav a');
     const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
-
     function updateActive() {
       const scrollY = window.scrollY + 140;
       let activeIdx = 0;
-      sections.forEach((sec, i) => {
-        if (sec && sec.offsetTop <= scrollY) activeIdx = i;
-      });
+      sections.forEach((sec, i) => { if (sec && sec.offsetTop <= scrollY) activeIdx = i; });
       links.forEach((a, i) => a.classList.toggle('active', i === activeIdx));
     }
-
     window.addEventListener('scroll', updateActive, { passive: true });
     updateActive();
+
+    // ── Supabase comments ──
+    const SUPABASE_URL = 'https://trrjfawersbercctadeb.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_UNXP74ll6FupfsWXl7BQzg_1cEtdiq0';
+    const DOC_ID = 'badaro-posicionamento';
+    const NAME_KEY = 'badaro-comments-author-name';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const drawer = document.getElementById('comments-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    const drawerContext = drawer.querySelector('.drawer-context');
+    const drawerComments = drawer.querySelector('.drawer-comments');
+    const nameInput = drawer.querySelector('input[name="author"]');
+    const bodyInput = drawer.querySelector('textarea[name="body"]');
+    const submitBtn = drawer.querySelector('.drawer-submit');
+
+    let commentsByAnchor = {};
+    let currentAnchor = null;
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    }
+
+    function setupCommentable() {
+      document.querySelectorAll('.section').forEach(section => {
+        const secId = section.id.replace('secao-', '');
+        const blocks = section.querySelectorAll('p, .callout, .quote-block, .pillar, .attr, ol.numbered');
+        blocks.forEach((block, idx) => {
+          const anchorId = `b-${secId}-${idx + 1}`;
+          block.dataset.anchorId = anchorId;
+          block.dataset.originalText = block.textContent.trim();
+          block.classList.add('commentable');
+
+          const pin = document.createElement('button');
+          pin.className = 'comment-pin';
+          pin.type = 'button';
+          pin.textContent = '+';
+          pin.title = 'Comentar neste trecho';
+          pin.setAttribute('aria-label', 'Comentar neste trecho');
+          pin.addEventListener('click', e => {
+            e.stopPropagation();
+            openDrawer(anchorId, block);
+          });
+          block.appendChild(pin);
+        });
+      });
+    }
+
+    function refreshPins() {
+      document.querySelectorAll('.commentable').forEach(block => {
+        const count = (commentsByAnchor[block.dataset.anchorId] || []).length;
+        const pin = block.querySelector('.comment-pin');
+        if (!pin) return;
+        if (count > 0) {
+          pin.classList.add('has-comments');
+          pin.textContent = count;
+          pin.title = `${count} comentário${count > 1 ? 's' : ''}`;
+        } else {
+          pin.classList.remove('has-comments');
+          pin.textContent = '+';
+          pin.title = 'Comentar neste trecho';
+        }
+      });
+    }
+
+    function renderDrawerComments() {
+      if (!currentAnchor) return;
+      const comments = commentsByAnchor[currentAnchor] || [];
+      if (comments.length === 0) {
+        drawerComments.innerHTML = '<div class="drawer-empty">Sem comentários ainda neste trecho.<br>Seja a primeira pessoa.</div>';
+        return;
+      }
+      drawerComments.innerHTML = comments.map(c => {
+        const d = new Date(c.created_at);
+        const date = d.toLocaleString('pt-BR', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+        return `<div class="comment-item"><div class="comment-meta"><span class="comment-author">${escapeHtml(c.author_name)}</span><span class="comment-date">${date}</span></div><div class="comment-body">${escapeHtml(c.body)}</div></div>`;
+      }).join('');
+      drawerComments.scrollTop = drawerComments.scrollHeight;
+    }
+
+    function openDrawer(anchorId, block) {
+      currentAnchor = anchorId;
+      const text = block.dataset.originalText || '';
+      drawerContext.textContent = text.length > 220 ? text.slice(0, 220) + '…' : text;
+      nameInput.value = localStorage.getItem(NAME_KEY) || '';
+      renderDrawerComments();
+      drawer.classList.add('open');
+      overlay.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      setTimeout(() => bodyInput.focus(), 320);
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      overlay.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      currentAnchor = null;
+    }
+
+    async function loadComments() {
+      const { data, error } = await sb
+        .from('comments')
+        .select('*')
+        .eq('document_id', DOC_ID)
+        .order('created_at', { ascending: true });
+      if (error) { console.error('Erro ao carregar comentários:', error); return; }
+      commentsByAnchor = {};
+      data.forEach(c => {
+        if (!commentsByAnchor[c.anchor_id]) commentsByAnchor[c.anchor_id] = [];
+        commentsByAnchor[c.anchor_id].push(c);
+      });
+      refreshPins();
+    }
+
+    sb.channel('comments-realtime')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'comments' }, payload => {
+        const c = payload.new;
+        if (c.document_id !== DOC_ID) return;
+        if (!commentsByAnchor[c.anchor_id]) commentsByAnchor[c.anchor_id] = [];
+        if (!commentsByAnchor[c.anchor_id].find(x => x.id === c.id)) {
+          commentsByAnchor[c.anchor_id].push(c);
+        }
+        refreshPins();
+        if (currentAnchor === c.anchor_id) renderDrawerComments();
+      })
+      .subscribe();
+
+    submitBtn.addEventListener('click', async () => {
+      const author = nameInput.value.trim();
+      const body = bodyInput.value.trim();
+      if (!author || !body || !currentAnchor) return;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+      const { error } = await sb.from('comments').insert({
+        document_id: DOC_ID,
+        anchor_id: currentAnchor,
+        author_name: author,
+        body: body
+      });
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar comentário';
+      if (error) { alert('Erro ao salvar comentário: ' + error.message); return; }
+      localStorage.setItem(NAME_KEY, author);
+      bodyInput.value = '';
+    });
+
+    drawer.querySelector('.drawer-close').addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+    });
+
+    setupCommentable();
+    loadComments();
   </script>
 
 </body>
